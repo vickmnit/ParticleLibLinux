@@ -1,0 +1,59 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // this configuration is for debugging the x86_64 exe in WSL2 linux
+            // DISPLAY environment value to be adjusted if it doesnot work
+            "name": "WSL2-GDB-Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/Linux/x86_64/Debug/spark_demo_app/spark_demo_app",
+            "args": [ "${workspaceFolder}/res/" ],
+            "cwd": "${workspaceFolder}/build/Linux/x86_64/Debug/spark_demo_app",
+            "stopAtEntry": false,
+            "environment": [
+              {
+                "name": "LIBGL_ALWAYS_INDIRECT",
+                "value": "1"
+              },
+              {
+                "name": "DISPLAY",
+                "value": "172.23.64.1:0"
+              }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "logging": {
+              "engineLogging": false,
+              "trace": true
+            },
+            "setupCommands": [
+              {
+                "description": "Enable pretty-printing for gdb",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+              },
+              {
+                "description": "Set Disassembly Flavor to Intel",
+                "text": "-gdb-set disassembly-flavor intel",
+                "ignoreFailures": true
+              }
+            ]
+          },
+        {
+            // toolchain used to build the rendercore is https://github.com/mstorsjo/llvm-mingw/releases/download/20220323/llvm-mingw-20220323-ucrt-x86_64.zip
+            // add the path to the bin folder after extracting in to PATH environment variable
+            // then run the build/build_mingw.bat to build the rendercore libs and executable for llvm_mingw
+            "type": "lldb",
+            "request": "launch",
+            "name": "MinGwDebug",
+            "program": "${workspaceFolder}/build/spark_demo_app.exe",
+            "args": ["${workspaceFolder}/build/res"],
+            "cwd": "${workspaceFolder}/build/",
+            "terminal": "integrated"
+        }
+    ]
+}
