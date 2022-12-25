@@ -72,14 +72,16 @@ namespace GLES
 		mvpMat = p_mvp;
 	}
 
-	void GLESLineRenderer::setResourcePaths(char* p_texturePath, unsigned int p_imageFormat, const char* p_vertShaderPath, const char* p_fragShaderPath)
+	void GLESLineRenderer::setResourcePaths(char* p_texturePath, unsigned int p_imageFormat, const char* p_vertShaderPath, const char* p_fragShaderPath, size_t vlen, size_t flen)
 	{
         texturePath = p_texturePath;
 		vertShaderPath = p_vertShaderPath;
         fragShaderPath = p_fragShaderPath;
+		vertLineLen = (int)vlen;
+		fragLineLen = (int)flen;
 		imageFormat = p_imageFormat;
         if(RainShader == nullptr)
-		   RainShader = new Shader(vertShaderPath, fragShaderPath);
+		   RainShader = new Shader(vertShaderPath, fragShaderPath, &vertLineLen, &fragLineLen);
 	}
 
 	void GLESLineRenderer::render(const Group& group)

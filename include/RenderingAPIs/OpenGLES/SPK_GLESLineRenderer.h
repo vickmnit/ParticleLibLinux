@@ -67,7 +67,7 @@ namespace GLES
 
 		void setTransformations(glm::mat4 p_modelview = glm::mat4(1.0f), glm::mat4 p_projection = glm::mat4(1.0f), glm::mat4 p_mvp = glm::mat4(1.0f));
 
-		void setResourcePaths(char* p_texturePath, unsigned int p_imageFormat, const char* p_vertShaderPath, const char* p_fragShaderPath);
+		void setResourcePaths(char* p_texturePath, unsigned int p_imageFormat, const char* p_vertShaderPath, const char* p_fragShaderPath, size_t vlen, size_t flen);
 
 protected :
 
@@ -90,6 +90,8 @@ private :
 		char* texturePath = nullptr;
 		const char* vertShaderPath = nullptr;
 		const char* fragShaderPath = nullptr;
+		int vertLineLen = 0;
+		int fragLineLen = 0;
 		unsigned int imageFormat;
 	};
 

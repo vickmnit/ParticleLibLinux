@@ -10,7 +10,7 @@ namespace SPK
     {
     // constructor generates the shader on the fly
     // ------------------------------------------------------------------------
-    Shader::Shader(const char* vertexPath, const char* fragmentPath)
+    Shader::Shader(const char* vertexPath, const char* fragmentPath, int *vlen, int *flen)
     {
         // 1. retrieve the vertex/fragment source code from filePath
        /*  std::string vertexCode;
@@ -48,12 +48,12 @@ namespace SPK
         unsigned int vertex, fragment;
         // vertex shader
         vertex = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vertex, 1, &vShaderCode, NULL);
+        glShaderSource(vertex, 1, &vShaderCode, (GLint*)vlen);
         glCompileShader(vertex);
         checkCompileErrors(vertex, "VERTEX");
         // fragment Shader
         fragment = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fragment, 1, &fShaderCode, NULL);
+        glShaderSource(fragment, 1, &fShaderCode, (GLint*)flen);
         glCompileShader(fragment);
         checkCompileErrors(fragment, "FRAGMENT");
         // shader Program

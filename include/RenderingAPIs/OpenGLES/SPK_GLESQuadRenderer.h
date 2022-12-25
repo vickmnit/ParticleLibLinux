@@ -93,9 +93,9 @@ namespace GLES
 
 		void setTransformations(glm::mat4 p_modelview = glm::mat4(1.0f), glm::mat4 p_projection = glm::mat4(1.0f), glm::mat4 p_mvp = glm::mat4(1.0f));
 
-		void setResourcePaths(char* p_texturePath, unsigned int p_imageFormat, const char* p_vertShaderPath, const char* p_fragShaderPath);
+		void setResourcePaths(char* p_texturePath, unsigned int p_imageFormat, const char* p_vertShaderPath, const char* p_fragShaderPath, size_t vlen, size_t flen);
 
-		void setQuadTex(const char* p_QuadTexPath, int w, int h);
+		void setQuadTex(const char* p_QuadTexPath, int w, int h, int len);
 
 		/////////////
 		// Getters //
@@ -146,9 +146,12 @@ namespace GLES
 		const char* QuadTexPath = nullptr;
 		const char* vertShaderPath = nullptr;
 		const char* fragShaderPath = nullptr;
+		int vertQuadLen = 0;
+		int fragQuadLen = 0;
 		unsigned int imageFormat;
 		int texWidth = 0;
 		int texHeight = 0;
+		int texBufLen = 0;
 
 		// buffers names
 		static const std::string GPU_BUFFER_NAME;

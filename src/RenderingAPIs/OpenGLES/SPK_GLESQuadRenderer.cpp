@@ -55,19 +55,22 @@ namespace GLES
 		mvpMat = p_mvp;
 	}
 
-	void GLESQuadRenderer::setResourcePaths(char* p_texturePath, unsigned int p_imageFormat, const char* p_vertShaderPath, const char* p_fragShaderPath)
+	void GLESQuadRenderer::setResourcePaths(char* p_texturePath, unsigned int p_imageFormat, const char* p_vertShaderPath, const char* p_fragShaderPath, size_t vlen, size_t flen)
 	{
         texturePath = p_texturePath;
 		vertShaderPath = p_vertShaderPath;
         fragShaderPath = p_fragShaderPath;
+		vertQuadLen = (int)vlen;
+		fragQuadLen = (int)flen;
 		imageFormat = p_imageFormat;
         if(splashShader == nullptr)
-		   splashShader = new Shader(vertShaderPath, fragShaderPath);
+		   splashShader = new Shader(vertShaderPath, fragShaderPath, &vertQuadLen, &fragQuadLen);
 	}
 
-	void GLESQuadRenderer::setQuadTex(const char* p_QuadTexPath, int p_width, int p_height)
+	void GLESQuadRenderer::setQuadTex(const char* p_QuadTexPath, int p_width, int p_height, int p_len)
 	{
 		QuadTexPath = p_QuadTexPath;
+		texBufLen = p_len;
 		texWidth = p_width;
 		texHeight = p_height;
 	}
@@ -114,12 +117,13 @@ namespace GLES
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		// load and generate the texture
 		int width, height, nrChannels;
-		unsigned char *data = stbi_load(texturePath, &width, &height, &nrChannels, 0);
-		if (QuadTexPath)
+		//unsigned char *data = stbi_load(texturePath, &width, &height, &nrChannels, 0);
+		unsigned char *data = stbi_load_from_memory((unsigned char*)QuadTexPath, texBufLen, &width, &height, &nrChannels, 0);
+		if (data)
 		{
 			//std::cout << "error before set TBO data: " << glGetError() << std::endl;
 			//splashShader->setTBOData(imageFormat, width, height, data);
-			splashShader->setTBOData(imageFormat, texWidth, texHeight, (unsigned char*)QuadTexPath);
+			splashShader->setTBOData(imageFormat, width, height, data);
 			//std::cout << "error after set TBO data: " << glGetError() << std::endl;
 		}
 		else

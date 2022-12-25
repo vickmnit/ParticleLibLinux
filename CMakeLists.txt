@@ -14,7 +14,6 @@ AUX_SOURCE_DIRECTORY("${PROJECT_SOURCE_DIR}/src/Extensions/Modifiers" spark_demo
 AUX_SOURCE_DIRECTORY("${PROJECT_SOURCE_DIR}/src/Extensions/Renderers" spark_demo_app_SRC)
 AUX_SOURCE_DIRECTORY("${PROJECT_SOURCE_DIR}/src/Extensions/Zones" spark_demo_app_SRC)
 AUX_SOURCE_DIRECTORY("${PROJECT_SOURCE_DIR}/src/RenderingAPIs/OpenGLES" spark_demo_app_SRC)
-AUX_SOURCE_DIRECTORY("${PROJECT_SOURCE_DIR}/src/Window" spark_demo_app_SRC)
 AUX_SOURCE_DIRECTORY("${PROJECT_SOURCE_DIR}/src" spark_demo_app_SRC)
 
 include_directories ("${PROJECT_SOURCE_DIR}/target/qnx7/usr/include")
